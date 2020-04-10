@@ -10,17 +10,17 @@ var users = [
 ];
 
 app.set('view engine', 'pug');
-app.set('views', './views')
+app.set('views', './views');
 
 app.get('/', function(req, res) {
     res.render('index.pug');
-})
+});
 
 app.get('/users', function(req, res) {
     res.render('users/index.pug', {
         users: users
     });
-})
+});
 
 app.get('/users/search', function(req, res) {
     var q = req.query.q;
@@ -29,10 +29,13 @@ app.get('/users/search', function(req, res) {
     });
 
     res.render('users/index.pug', {
-        users: matchedUsers
-    })
+        users: matchedUsers,
+        queryInput: q
+    });
+    
 })
 
 app.listen(port, function() {
     console.log('Server is listening on: ' + port);
-})
+});
+
