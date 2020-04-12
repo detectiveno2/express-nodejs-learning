@@ -1,0 +1,12 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    h2 Users
+    p <a href="/users/create">Create a new user</a>
+    form(action="/users/search" method="GET")
+        input(type="text", class=" form-control w-25", name="q", value=queryInput)
+        button(id="button", class="btn btn-primary mt-4") Search
+    ul
+        each user in users
+            li
+                a(href='/users/' + user.id) #{user.name}

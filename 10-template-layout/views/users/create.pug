@@ -1,0 +1,8 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    h2 Create user
+    form(action="/users/create", method="post")
+        label Name: 
+        input(name="name", class="form-control w-25", type="text")
+        button(class="btn btn-primary mt-4") Create
