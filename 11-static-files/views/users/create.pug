@@ -1,0 +1,8 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    a(href="/users", class="btn btn-outline-primary mb-3") Back
+    form(action="/users/create", method="post")
+        label Name: 
+        input(name="name", class="form-control w-25", type="text")
+        button(class="btn btn-success mt-3") Create
