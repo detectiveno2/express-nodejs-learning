@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "name": "Thien",
+      "phone": "0782367185",
+      "id": "ggwBYjpFF",
+      "email": "nhatthien",
+      "password": "f968cda03a403d8a1cf18a960a911233"
+    },
+    {
+      "name": "Hieu",
+      "phone": "0876954878",
+      "id": "sTC3QkHHx"
+    },
+    {
+      "name": "Trung",
+      "phone": "0657865483",
+      "id": "GbwTh2jaR"
+    },
+    {
+      "name": "Tinh",
+      "phone": "0978657896",
+      "id": "EvIvRK4aU"
+    }
+  ]
+}
