@@ -1,0 +1,23 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    form(action="/users/search", class=("d-flex justify-content-between"), method="GET")
+        div(class="d-flex w-25")
+            input(type="text", class="form-control", name="q", value=queryInput, placeholder="Search...")
+            button(id="button", class="btn btn-primary") Search
+        a(class="btn btn-success", href="/users/create") Create a new user
+    table(class="table mt-4")
+        thead.thead-dark
+            tr
+                th(scope="col" class="text-center") ID
+                th(scope="col" class="text-center") Name
+                th(scope="col" class="text-center") Phone
+                th(scope="col" class="text-center") Action
+        tbody
+            each user, index in users
+                tr
+                    td(scope="row" class="text-center p-0")= user.id
+                    td(class="text-center p-0")= user.name
+                    td(class="text-center p-0")= user.phone
+                    td(class="text-center p-0")
+                        a(class="btn btn-primary", href="/users/" + user.id) View
