@@ -1,0 +1,47 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    .container
+        a.btn.btn-outline-primary(href="/") Back
+        .d-flex.flex-wrap.justify-content-around.bg-light.mt-4
+            each product in products
+                .product
+                    .product-img
+                        img(src=product.image)
+                    .product-information
+                        p(class="product-name")= product.name
+                        p(class="product-price")= product.price
+                        p(class="product-description")= product.description
+                            a(class="btn btn-primary add-btn", href="#") Add to cart
+        nav
+            ul.pagination.justify-content-center
+                if page <= 1
+                    li.page-item
+                        a.page-link(href='/products?page=1') #{page}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page + 1)) #{page + 1}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page + 2)) #{page + 2}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page + 1)) next
+                else if page >= pageQuantity
+                    li.page-item
+                        a.page-link(href='/products?page=' + (pageQuantity - 1)) prev
+                    li.page-item
+                        a.page-link(href='/products?page=' + (pageQuantity - 2)) #{pageQuantity - 2}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (pageQuantity - 1)) #{pageQuantity - 1}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (pageQuantity)) #{pageQuantity}
+                else
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page - 1)) prev
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page - 1)) #{page - 1}
+                    li.page-item
+                        a.page-link(href='/products?page=' + page) #{page}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page + 1)) #{page + 1}
+                    li.page-item
+                        a.page-link(href='/products?page=' + (page + 1)) next
+                    
