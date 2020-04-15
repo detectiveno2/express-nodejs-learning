@@ -2,5 +2,10 @@ extend ../../layouts/general.layout.pug
 
 block content
     a(href="/users", class="btn btn-outline-primary") Back
-    p(class="mb-0 mt-3") Name: #{user.name}
-    p.pb-3 ID: #{user.id}
+    h1 Profile user
+    img(src='./../' + user.avatar, width="200", style="border-radius: 50%")
+    p.mb-0.mt-2 ID: #{user.id}
+    p.mb-0.mt-2 Name: #{user.name}
+    p.mb-0.mt-2 Phone: #{user.phone}
+
+    
