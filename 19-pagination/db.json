@@ -5,7 +5,8 @@
       "phone": "0782367185",
       "id": "ggwBYjpFF",
       "email": "nhatthien",
-      "password": "f968cda03a403d8a1cf18a960a911233"
+      "password": "f968cda03a403d8a1cf18a960a911233",
+      "avatar": "avatar/49215224e173aadf11bdf2d4aa8df063"
     },
     {
       "name": "Hieu",
@@ -16,11 +17,6 @@
       "name": "Trung",
       "phone": "0657865483",
       "id": "GbwTh2jaR"
-    },
-    {
-      "name": "Tinh",
-      "phone": "0978657896",
-      "id": "EvIvRK4aU"
     }
   ],
   "products": [
