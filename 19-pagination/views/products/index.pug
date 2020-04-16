@@ -12,7 +12,8 @@ block content
                         p(class="product-name")= product.name
                         p(class="product-price")= product.price
                         p(class="product-description")= product.description
-                            a(class="btn btn-primary add-btn", href="#") Add to cart
+                            a(class="btn btn-primary add-btn",
+                            href="/cart/add/" + product.id ) Add to cart
         nav
             ul.pagination.justify-content-center
                 if page <= 1

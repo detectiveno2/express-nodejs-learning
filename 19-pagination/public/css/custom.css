@@ -46,6 +46,12 @@
   position: relative;
 }
 
+.product .product-quantity {
+  font-size: 0.75rem;
+  position: relative;
+  top: -2rem;
+}
+
 .product .product-description .add-btn {
   position: absolute;
   top: 40%;
