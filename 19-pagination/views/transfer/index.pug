@@ -1,0 +1,10 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    form(action="/transfer/create", method="post")
+        input(type="hidden", name="_csrf", value=csrfToken)
+        label(for="account") Account:
+        input#account(name="accountId", class="form-control mb-2", type="text")
+        label(for="amount") Amount:
+        input#amount(name="amount", class="form-control", type="number")
+        button(class="btn btn-primary mt-3") Submit
