@@ -1,0 +1,14 @@
+extend ../../layouts/general.layout.pug
+
+block content
+    h1 Cart
+        .container.d-flex.flex-wrap
+            each product in cart
+                    .product.mx-1
+                        .product-img
+                            img(src=product.image)
+                        .product-information
+                            p(class="product-name")= product.name
+                            p(class="product-price")= product.price
+                            p(class="product-description")= product.description
+                            p(class="product-quantity") Quantities: #{product.quantity}
