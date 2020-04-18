@@ -3,7 +3,9 @@ var bodyParser = require('body-parser');
 var md5 = require('md5');
 
 module.exports.login = function (req, res, next) {
-  res.render('auth/login.pug');
+  res.render('auth/login.pug', {
+    csrfToken: req.csrfToken(),
+  });
 };
 
 module.exports.postLogin = function (req, res, next) {
