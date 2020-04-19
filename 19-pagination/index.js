@@ -14,6 +14,7 @@ var authRoute = require('./routes/auth.route.js');
 var productsRoute = require('./routes/products.route.js');
 var cartRoute = require('./routes/cart.route.js');
 var transferRoute = require('./routes/transfer.route.js');
+var apiProductsRoute = require('./api/routes/product.route.js');
 
 var authMiddleware = require('./middleware/auth/auth.middleware.js');
 var sessionMiddleware = require('./middleware/session/session.middleware.js');
@@ -30,6 +31,8 @@ app.use(
 );
 app.use(bodyParser.json());
 
+app.use('/api/products', apiProductsRoute);
+
 app.use(express.static('public'));
 
 app.use(cookieParser(process.env.SESSION_SECRET));
@@ -41,7 +44,7 @@ app.use('/auth', authRoute);
 app.use('/products', productsRoute);
 app.use('/cart', cartRoute);
 
-app.use(csurf({ cookie: true }));
+// app.use(csurf({ cookie: true }));
 app.use('/transfer', authMiddleware.requireAuth, transferRoute);
 app.get('/', function (req, res) {
   res.render('index.pug');
