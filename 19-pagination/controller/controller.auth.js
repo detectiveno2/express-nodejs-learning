@@ -1,18 +1,16 @@
-var db = require('../lowdb.js');
-var bodyParser = require('body-parser');
 var md5 = require('md5');
 
+var User = require('./../models/user.model.js');
+
 module.exports.login = function (req, res, next) {
-  res.render('auth/login.pug', {
-    csrfToken: req.csrfToken(),
-  });
+  res.render('auth/login.pug');
 };
 
-module.exports.postLogin = function (req, res, next) {
+module.exports.postLogin = async function (req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
 
-  var user = db.get('users').find({ email: email }).value();
+  var user = await User.findOne({ email: email });
 
   if (!user) {
     res.render('auth/login.pug', {
@@ -31,8 +29,9 @@ module.exports.postLogin = function (req, res, next) {
     return;
   }
 
-  res.cookie('userId', user.id, {
+  res.cookie('userId', user._id, {
     signed: true,
   });
+
   res.redirect('/users');
 };

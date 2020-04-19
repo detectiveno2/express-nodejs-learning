@@ -1,19 +1,18 @@
-var db = require('./../lowdb.js');
-var shortid = require('shortid');
+var Transfer = require('./../models/transfer.model.js');
 
-module.exports.create = function (req, res, next) {
+module.exports.create = function (req, res) {
   res.render('transfer/index.pug', {
     csrfToken: req.csrfToken(),
   });
 };
 
-module.exports.createPost = function (req, res, next) {
-  var data = {
-    id: shortid.generate(),
+module.exports.createPost = async function (req, res) {
+  var data = new Transfer({
     accountId: req.body.accountId,
     amount: parseInt(req.body.amount),
     userId: req.signedCookies.userId,
-  };
-  db.get('transfer').push(data).write();
+  });
+  await data.save();
+
   res.redirect('/transfer/create');
 };

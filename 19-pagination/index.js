@@ -5,6 +5,9 @@ var app = express();
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var csurf = require('csurf');
+var mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URL);
 
 var userRoute = require('./routes/user.route.js');
 var authRoute = require('./routes/auth.route.js');
@@ -30,7 +33,6 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.use(cookieParser(process.env.SESSION_SECRET));
-app.use(csurf({ cookie: true }));
 
 app.use(sessionMiddleware);
 
@@ -38,8 +40,9 @@ app.use('/users', authMiddleware.requireAuth, userRoute);
 app.use('/auth', authRoute);
 app.use('/products', productsRoute);
 app.use('/cart', cartRoute);
-app.use('/transfer', authMiddleware.requireAuth, transferRoute);
 
+app.use(csurf({ cookie: true }));
+app.use('/transfer', authMiddleware.requireAuth, transferRoute);
 app.get('/', function (req, res) {
   res.render('index.pug');
 });

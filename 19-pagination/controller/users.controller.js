@@ -1,16 +1,16 @@
-var db = require('./../lowdb.js');
-var shortid = require('shortid');
-var bodyParser = require('body-parser');
+var User = require('./../models/user.model.js');
 
 module.exports.index = function (req, res) {
-  res.render('users/index.pug', {
-    users: db.get('users').value(),
+  User.find().then(function (user) {
+    res.render('users/index.pug', {
+      users: user,
+    });
   });
 };
 
-module.exports.search = function (req, res) {
+module.exports.search = async function (req, res) {
   var q = req.query.q;
-  var users = db.get('users').value();
+  var users = await User.find();
   var matchedUsers = users.filter(function (user) {
     return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
@@ -25,15 +25,26 @@ module.exports.create = function (req, res) {
 };
 
 module.exports.postCreate = function (req, res) {
-  req.body.id = shortid.generate();
   req.body.avatar = req.file.path.split('/').slice(1).join('/');
-  db.get('users').push(req.body).write();
+
+  var newUser = new User({
+    name: req.body.name,
+    phone: req.body.phone,
+    email: req.body.email,
+    avatar: req.body.avatar,
+  });
+
+  User.insertMany([newUser], function (err, user) {
+    if (err) {
+      console.log(err);
+    }
+  });
+
   res.redirect('/users');
 };
 
-module.exports.view = function (req, res) {
-  var id = req.params.id;
-  var user = db.get('users').find({ id: id }).value();
+module.exports.view = async function (req, res) {
+  var user = await User.findById(req.params.id);
   res.render('users/view.pug', {
     user: user,
   });
