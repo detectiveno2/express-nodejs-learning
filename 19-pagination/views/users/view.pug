@@ -3,7 +3,7 @@ extend ../../layouts/general.layout.pug
 block content
     a(href="/users", class="btn btn-outline-primary") Back
     h1 Profile user
-    img(src='./../' + user.avatar, width="200", style="border-radius: 50%")
+    img(src='./../../' + user.avatar, width="200", style="border-radius: 50%")
     p.mb-0.mt-2 ID: #{user.id}
     p.mb-0.mt-2 Name: #{user.name}
     p.mb-0.mt-2 Phone: #{user.phone}

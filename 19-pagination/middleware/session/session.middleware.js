@@ -1,17 +1,12 @@
-var shortid = require('shortid');
-var db = require('./../../lowdb.js');
+var Session = require('./../../models/session.model.js');
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   if (!req.signedCookies.sessionId) {
-    var sessionId = shortid.generate();
-    res.cookie('sessionId', sessionId, {
+    var session = new Session();
+    await session.save();
+    res.cookie('sessionId', session.id, {
       signed: true,
     });
-    db.get('sessions')
-      .push({
-        id: sessionId,
-      })
-      .write();
   }
   next();
 };

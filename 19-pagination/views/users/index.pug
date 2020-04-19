@@ -9,14 +9,14 @@ block content
     table(class="table mt-4")
         thead.thead-dark
             tr
-                th(scope="col", class="text-center") ID
+                th(scope="col", class="text-center") Email
                 th(scope="col", class="text-center") Name
                 th(scope="col", class="text-center") Phone
                 th(scope="col", class="text-center") Action
         tbody
             each user, index in users
                 tr
-                    td(scope="row", class="text-center p-0", style="line-height: 60px;")= user.id
+                    td(scope="row", class="text-center p-0", style="line-height: 60px;")= user.email
                     td(class="text-center p-0", style="line-height: 60px;")= user.name
                     td(class="text-center p-0", style="line-height: 60px;")= user.phone
                     td(class="text-center p-0", style="line-height: 60px;")

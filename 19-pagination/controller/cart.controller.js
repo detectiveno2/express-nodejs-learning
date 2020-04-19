@@ -1,51 +1,48 @@
-var db = require('./../lowdb.js');
+var Session = require('./../models/session.model.js');
+var Product = require('./../models/product.model.js');
 
-module.exports.index = function (req, res) {
+module.exports.index = async function (req, res) {
   // Get session
-
-  var session = db
-    .get('sessions')
-    .find({ id: req.signedCookies.sessionId })
-    .value();
+  var session = await Session.findById(req.signedCookies.sessionId);
 
   // Get cart array
-
   var arrayCart = [];
-
-  for (var product in session.cart) {
-    var productData = db.get('products').find({ id: product }).value();
-    productData.quantity = session.cart[product];
-    arrayCart.push(productData);
+  for (var product of session.cart) {
+    var data = await Product.findById(product._id);
+    data.quantity = product.quantity;
+    arrayCart.push(data);
   }
 
   res.render('cart/index.pug', {
     cart: arrayCart,
-    quantityProduct: session.cart,
   });
 };
 
-module.exports.addToCart = function (req, res) {
+module.exports.addToCart = async function (req, res) {
   var productId = req.params.productId;
   var sessionId = req.signedCookies.sessionId;
-  if (!sessionId) {
-    res.redirect('/products');
-    return;
+
+  // Get session
+  var session = await Session.findById(sessionId);
+
+  // Check product
+  var selectedProduct = session.cart.find(function (product) {
+    return product._id.toString() === productId;
+  });
+
+  if (!selectedProduct) {
+    await session.updateOne({
+      $push: {
+        cart: {
+          _id: productId,
+          quantity: 1,
+        },
+      },
+    });
+  } else {
+    selectedProduct.quantity += 1;
+    await session.save();
   }
-
-  // Get quantity of products:
-
-  var count = db
-    .get('sessions')
-    .find({ id: sessionId })
-    .get('cart.' + productId, 0)
-    .value();
-
-  // Update quantity of products:
-
-  db.get('sessions')
-    .find({ id: sessionId })
-    .set('cart.' + productId, count + 1)
-    .write();
 
   res.redirect('/products');
 };

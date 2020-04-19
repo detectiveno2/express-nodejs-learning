@@ -10,6 +10,9 @@ block content
             label(for="name") Name: 
             input#name(name="name", class="form-control mb-2", type="text", value=values ? values.name : '')
         .form-group
+            label(for="email") Email:
+            input#email(name="email", class="form-control mb-2", type="text")
+        .form-group
             label(for="phone") Phone: 
             input#phone(name="phone", class="form-control", type="text", value=values ? values.phone : '')
         .form-group
